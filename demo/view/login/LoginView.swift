@@ -1,27 +1,32 @@
-
 import SwiftUI
 
-struct ContentView: View {
+struct LoginView: View {
     
     @State private var username = ""
     @State private var password = ""
+    @State private var isAuthenticationSucceed: Bool = false
     
     var body: some View {
-        ZStack {
-            BackgroundView()
+        NavigationStack {
+            ZStack {
+                BackgroundView()
 
-            VStack {
-                LogoView()
+                VStack {
+                    LogoView()
 
-                LoginFormView(username: $username, password: $password)
+                    LoginFormView(
+                        username: $username,
+                        password: $password,
+                        isAuthenticationSucceed: $isAuthenticationSucceed)
+                }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LoginView()
     }
 }
 
@@ -64,6 +69,7 @@ struct LoginFormView: View {
 
     @Binding var username: String
     @Binding var password: String
+    @Binding var isAuthenticationSucceed: Bool
 
     var body: some View {
         TextField("Username",text: $username)
@@ -79,10 +85,17 @@ struct LoginFormView: View {
             .cornerRadius(10)
 
         Button {
-            print("Login")
+            authenticateUser(username: username, password: password)
         } label: {
             LoginButton()
+        }.navigationDestination(isPresented: $isAuthenticationSucceed) {
+            PortalView()
         }
+
+    }
+
+    func authenticateUser(username: String, password: String) {
+        isAuthenticationSucceed.toggle()
     }
 }
 
