@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LoginView: View {
+struct SignInView: View {
     
     @State private var username = ""
     @State private var password = ""
@@ -9,12 +9,12 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                BackgroundView()
+                Background()
 
                 VStack {
-                    LogoView()
+                    Logo()
 
-                    LoginFormView(
+                    SignInForm(
                         username: $username,
                         password: $password,
                         isAuthenticationSucceed: $isAuthenticationSucceed)
@@ -24,48 +24,13 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        SignInView()
     }
 }
 
-struct BackgroundView: View {
-    var body: some View {
-        Color("lightBlue#1")
-            .ignoresSafeArea()
-        
-        Rectangle()
-            .scale(1.2)
-            .rotationEffect(Angle(degrees: 80))
-            .foregroundColor(Color.black.opacity(0.03))
-        
-        Rectangle()
-            .scale(1.2)
-            .rotationEffect(Angle(degrees: 120))
-            .foregroundColor(Color.white.opacity(0.05))
-    }
-}
-
-struct LogoView: View {
-    var body: some View {
-        VStack {
-            Text("DEMO")
-                .font(.system(size: 32, weight: .bold))
-                .foregroundColor(Color.white)
-            
-            Divider()
-                .frame(width: 250, height: 1)
-                .overlay(Color("yellow#1"))
-            
-            Text("Demo Application")
-                .font(.system(size: 20, weight: .ultraLight))
-                .foregroundColor(Color.white)
-        }.padding(.bottom, 50)
-    }
-}
-
-struct LoginFormView: View {
+struct SignInForm: View {
 
     @Binding var username: String
     @Binding var password: String
@@ -87,21 +52,20 @@ struct LoginFormView: View {
         Button {
             authenticateUser(username: username, password: password)
         } label: {
-            LoginButton()
+            SignInButton()
         }.navigationDestination(isPresented: $isAuthenticationSucceed) {
-            PortalView()
+            Home()
         }
-
     }
 
     func authenticateUser(username: String, password: String) {
-        isAuthenticationSucceed.toggle()
+        isAuthenticationSucceed = true
     }
 }
 
-struct LoginButton: View {
+struct SignInButton: View {
     var body: some View {
-        Text("Login")
+        Text("Sign In")
             .frame(width: 300, height: 50)
             .foregroundColor(Color.white)
             .background(Color("yellow#1"))

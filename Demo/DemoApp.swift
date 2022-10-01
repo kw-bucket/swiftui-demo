@@ -1,10 +1,10 @@
 import SwiftUI
 
 @main
-struct demoApp: App {
+struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            SplashScreenView()
         }
     }
 }

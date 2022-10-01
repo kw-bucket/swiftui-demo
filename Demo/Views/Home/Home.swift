@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PortalView: View {
+struct Home: View {
     var body: some View {
         NavigationStack {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
@@ -8,8 +8,8 @@ struct PortalView: View {
     }
 }
 
-struct PortalView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        PortalView()
+        Home()
     }
 }
